@@ -18,6 +18,7 @@ export default class Search extends Component {
     render() {
         return(
             <div id="search">
+                SOME TEXT
                 <form onSubmit={this.handleForm}>
                 <input 
                 onChange={e => this.setState({ searchPokemon: e.target.value})} 

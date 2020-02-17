@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import pokeItem from './pokeItem'
-import { getPokemon } from './pokemon-api';
-import pokeList from './pokeList';
+import PokemonItem from './PokemonItem'
+import { getCharacter } from './pokemon-api';
 
 
 export default class Detail extends Component {
@@ -9,7 +8,7 @@ export default class Detail extends Component {
     state = { pokemonState: {}}
 
     async componentDidMount() {
-        const detailPokemonData = await getPokemon(this.props.match.params.pokemon)
+        const detailPokemonData = await getCharacter(this.props.match.params.pokeId)
 
         if (detailPokemonData.body.results)
 
@@ -24,7 +23,7 @@ export default class Detail extends Component {
         return (
             <div>
             {console.log("hello")}
-            <pokeItem pokemonCard={ pokemonState }/>
+            {this.state.pokemonState.pokemon && <PokemonItem pokemonCard={ pokemonState }/>}
 
             </div>
         )

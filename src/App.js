@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import request from 'superagent';
-import Search from './SearchOptions'
-import {getPokemon} from './pokemon-api';
-import Explore from './Explore';
+//import Search from './SearchOptions'
+import {getCharacter} from './pokemon-api';
 import {
   Route, 
   Link, 
@@ -11,6 +9,7 @@ import {
   BrowserRouter as Router,} from 'react-router-dom';
 import Detail from './Detail';
 import AboutMe from './AboutMe';
+import Home from './Home';
 
 
 export default class App extends Component {
@@ -18,21 +17,21 @@ export default class App extends Component {
   pokemonItemData: []};
 
   async loadPokedex(){
-    const infoResponse = await getPokemon();
+    const infoResponse = await getCharacter();
     const pokemonItemData = infoResponse.results;
     const pokeCount = infoResponse.count;
     this.setState({pokemonItemData, pokeCount })
 
   }
 
-  async componentDidMount() {
-  const pokemonJsonData = await request.get('https://alchemy-pokedex.herokuapp.com/api/pokedex')
-  console.log(pokemonJsonData)
-  this.setState({ pokemonItemData: pokemonJsonData.body.results });
-  window.addEventListener("hashchange", async () => {
-    await this.loadPokedex();
-  });
-}
+//   async componentDidMount() {
+//   const pokemonJsonData = await request.get('https://alchemy-pokedex.herokuapp.com/api/pokedex')
+//   console.log(pokemonJsonData)
+//   this.setState({ pokemonItemData: pokemonJsonData.body.results });
+//   window.addEventListener("hashchange", async () => {
+//     await this.loadPokedex();
+//   });
+// }
 
   //  this.setState({you need to set global variables })
   render() {
@@ -48,10 +47,12 @@ export default class App extends Component {
           <Link to="/AboutMe">About Me</Link><br/>
         </header>
         <Switch>
-          <Route exact path="/" component={Search}/>
-          <Route path="/detail/:id" component={Detail}/>
+          <Route path="/detail/:pokeId" component={Detail}/>
           <Route exact path="/AboutMe/" component={AboutMe}/>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/:pokemon" component={Home}/>
         </Switch>
+        
       </div>
     </Router>
       );
