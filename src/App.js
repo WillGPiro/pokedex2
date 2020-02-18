@@ -48,10 +48,17 @@ export default class App extends Component {
         </header>
         <Switch>
           <Route path="/detail/:pokeId" component={Detail}/>
+          {/* anything without a ? is assumed to be required after the URL */}
           <Route exact path="/AboutMe/" component={AboutMe}/>
+          {/* adding the / after AboutMe */}
           <Route exact path="/" component={Home}/>
-          <Route exact path="/:pokemon" component={Home}/>
+          {/* : = parameters. If routes are like functions, colons indicate the 'parameter' of the route */}
+          {/* /:searchByType/:pokemon are our query params. */}
+          <Route exact path="/:searchByType/:pokemon" component={Home}/>
+          {/*  */}
+
         </Switch>
+        {/* Switch renders the first  */}
         
       </div>
     </Router>
